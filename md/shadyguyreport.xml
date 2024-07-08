@@ -31,7 +31,7 @@
                     <remove_value name="$localCount" />
                 </do_for_each>
 
-                <show_help custom="'Found ' + $shadyCount + ' shadyguys across ' + $Sectors.count + ' sectors.'" pos="1" duration="5s" />
+                <show_help custom="'Found ' + $shadyCount + ' shadyguys across ' + $Sectors.count + ' sectors (ignore Xenon).'" pos="1" duration="5s" />
                 <set_value name="$averageRate" exact="$averageRate / $Sectors.count" />
                 <show_help custom="'Average shadyguy coverage per sector is ' + $averageRate" pos="1" duration="5s" />
 
