@@ -12,7 +12,9 @@
                 <set_value name="$shadyCount" exact="0" />
                 <!-- Given how the random number generator is set to prefer >50% distribution, the average coverage should be >50% -->
                 <set_value name="$averageRate" exact="0" />
-                <find_sector name="$Sectors" space="player.galaxy" multiple="true" />
+                <find_sector name="$Sectors" space="player.galaxy" multiple="true">
+                    <match owner="faction.xenon" negate="true" />
+                </find_sector>
                 <do_for_each name="$SelectedSector" in="$Sectors">
                     <find_station name="$StationsList" space="$SelectedSector" multiple="true"/>
                     <do_if value="$StationsList.count == 0">
