@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mdscript name="ShadyGuyReport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+    <cues>
+        <!-- Reports about shadyguy statistics on game start/load. -->
+        <cue name="DoReport" instantiate="true">
+            <conditions>
+                <event_cue_signalled cue="md.Setup.Start" />
+                <check_value value="player.galaxy.macro.ismacro.{macro.xu_ep2_universe_macro}" />
+            </conditions>
+            <delay exact="5s" />
+            <actions>
+                <set_value name="$shadyCount" exact="0" />
+                <!-- Given how the random number generator is set to prefer >50% distribution, the average coverage should be >50% -->
+                <set_value name="$averageRate" exact="0" />
+                <find_sector name="$Sectors" space="player.galaxy" multiple="true" />
+                <do_for_each name="$SelectedSector" in="$Sectors">
+                    <find_station name="$StationsList" space="$SelectedSector" multiple="true"/>
+                    <set_value name="$localCount" exact="0" />
+                    <do_for_each name="$Station" in="$StationsList">
+                        <do_if value="$Station.shadyguy">
+                            <set_value name="$localCount" exact="$localCount + 1" />
+                        </do_if>
+                    </do_for_each>
+                    <set_value name="$averageRate" exact="$averageRate + $localCount * 1.0 / $StationsList.count" />
+                    <set_value name="$shadyCount" exact="$shadyCount + $localCount" />
+                    <remove_value name="$localCount" />
+                </do_for_each>
+
+                <show_help custom="'Found ' + $shadyCount + ' shadyguys across ' + $Sectors.count + ' sectors.'" pos="1" duration="5s" />
+                <set_value name="$averageRate" exact="$averageRate / $Sectors.count" />
+                <show_help custom="'Average shadyguy coverage per sector is ' + $averageRate" pos="1" duration="5s" />
+
+                <remove_value name="$shadyCount" />
+                <remove_value name="$Sectors" />
+                <remove_value name="$StationsList" />
+                <remove_value name="$averageRate" />
+            </actions>
+        </cue>
+    </cues>
+</mdscript>
