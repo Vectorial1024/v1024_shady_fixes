@@ -15,6 +15,9 @@
                 <find_sector name="$Sectors" space="player.galaxy" multiple="true" />
                 <do_for_each name="$SelectedSector" in="$Sectors">
                     <find_station name="$StationsList" space="$SelectedSector" multiple="true"/>
+                    <do_if value="$StationsList.count == 0">
+                        <continue/>
+                    </do_if>
                     <set_value name="$localCount" exact="0" />
                     <do_for_each name="$Station" in="$StationsList">
                         <do_if value="$Station.shadyguy">
