@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+    <replace sel="//cue[@name='InitialiseShadyGuys']/conditions/cue_is_waiting">
+        <cue_is_complete cue="md.NPC_ShadyGuy.EvaluateSectors" />
+    </replace>
+</diff>
